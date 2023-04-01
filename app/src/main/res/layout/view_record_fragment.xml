@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#222A35">
+
+    <TextView
+        android:id="@+id/view_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:text="Age: 21"
+        app:layout_constraintStart_toStartOf="@+id/view_fullname"
+        app:layout_constraintTop_toBottomOf="@+id/view_fullname" />
+
+    <TextView
+        android:id="@+id/view_asthma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Has an asthma: No"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/view_heart"
+        app:layout_constraintTop_toBottomOf="@+id/view_heart" />
+
+    <TextView
+        android:id="@+id/view_heart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Have a heart condition: No"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/view_smoking"
+        app:layout_constraintTop_toBottomOf="@+id/view_smoking" />
+
+    <TextView
+        android:id="@+id/view_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="52dp"
+        android:text="ID: 00001"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/view_id3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/view_id3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="52dp"
+        android:text="ID"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/view_id7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Name"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/view_id3"
+        app:layout_constraintTop_toBottomOf="@+id/view_id3" />
+
+    <TextView
+        android:id="@+id/view_id4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Age"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/view_id7"
+        app:layout_constraintTop_toBottomOf="@+id/view_id7" />
+
+    <TextView
+        android:id="@+id/view_id6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Sex"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/view_id4"
+        app:layout_constraintTop_toBottomOf="@+id/view_id4" />
+
+    <TextView
+        android:id="@+id/view_id8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Smoker"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/view_id6"
+        app:layout_constraintTop_toBottomOf="@+id/view_id6" />
+
+    <TextView
+        android:id="@+id/view_id9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Heart Condition"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/view_id8"
+        app:layout_constraintTop_toBottomOf="@+id/view_id8" />
+
+    <TextView
+        android:id="@+id/view_id10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Asthma"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/view_id9"
+        app:layout_constraintTop_toBottomOf="@+id/view_id9" />
+
+    <TextView
+        android:id="@+id/view_smoking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:text="Smoker: No"
+        app:layout_constraintStart_toStartOf="@+id/view_gender"
+        app:layout_constraintTop_toBottomOf="@+id/view_gender" />
+
+    <TextView
+        android:id="@+id/view_fullname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:text="Name: Aaron James Mission"
+        app:layout_constraintStart_toStartOf="@+id/view_id"
+        app:layout_constraintTop_toBottomOf="@+id/view_id" />
+
+    <TextView
+        android:id="@+id/view_gender"
+        android:layout_width="60dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="10dp"
+        android:text="Sex: Male"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/view_age"
+        app:layout_constraintTop_toBottomOf="@+id/view_age" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/view_closed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_corners_blue"
+        android:text="CLOSE"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_asthma" />
+</androidx.constraintlayout.widget.ConstraintLayout>

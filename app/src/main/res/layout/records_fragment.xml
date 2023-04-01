@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#222A35"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/records_search"
+        android:layout_width="294dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/rounded_corner_white"
+        android:elevation="10dp"
+        android:ems="10"
+        android:hint="search name"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:paddingStart="20dp"
+        android:textColor="@color/black"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toStartOf="@+id/records_search_button"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/records_search_button"
+        android:layout_width="49dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/rounded_corners_blue"
+        android:drawableStart="@drawable/ic_search"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/records_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/records_search"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/records_list"
+        android:layout_width="349dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/records_search_button"
+        app:layout_constraintStart_toStartOf="@+id/records_search"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:elevation="10dp"
+        android:id="@+id/records_no_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Record Found"
+        android:visibility="invisible"
+        android:textColor="#D4DFE6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingStart="20dp"
+        android:text="PATIENT LIST"
+        android:textColor="#D4DFE6"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/records_search"
+        app:layout_constraintTop_toBottomOf="@+id/records_search" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:paddingStart="20dp"
+        android:text="PATIENT LIST"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="259dp"
+        android:layout_marginTop="-150dp"
+        android:elevation="-10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background_top" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
