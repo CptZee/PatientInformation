@@ -22,6 +22,6 @@ public class SplashFragment extends Fragment {
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.main_container, new DashboardFragment())
                     .commit();
-        }, 1000);
+        }, 2000);
     }
 }
