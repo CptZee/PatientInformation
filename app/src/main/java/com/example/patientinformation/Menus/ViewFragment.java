@@ -1,5 +1,6 @@
 package com.example.patientinformation.Menus;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.loader.content.AsyncTaskLoader;
 
 import com.example.patientinformation.Data.Helper.HistoryHelper;
 import com.example.patientinformation.Data.Helper.PatientHelper;
@@ -34,33 +36,7 @@ public class ViewFragment extends Fragment {
         view_heart = view.findViewById(R.id.view_heart);
         view_asthma = view.findViewById(R.id.view_asthma);
 
-        RecordHelper recordHelper = new RecordHelper(getContext());
-        PatientHelper patientHelper = new PatientHelper(getContext());
-        HistoryHelper historyHelper = new HistoryHelper(getContext());
-
-        Record record = recordHelper.get(getArguments().getInt("recordID"));
-        Patient patient = patientHelper.get(record.getPatientID());
-        History history = historyHelper.get(record.getHistoryID());
-
-        view_id.setText("Patient-" + record.getID());
-        view_fullname.setText(patient.getFirstName() + " " + patient.getMiddleName() + " " + patient.getLastName());
-        view_age.setText("" + patient.getAge());
-        view_gender.setText(patient.getSex());
-
-        if(history.isSmoker())
-            view_smoking.setText("Yes");
-        else
-            view_smoking.setText("No");
-
-        if(history.hasHeartCondition())
-            view_heart.setText("Yes");
-        else
-            view_heart.setText("No");
-
-        if(history.hasAsthma())
-            view_asthma.setText("Yes");
-        else
-            view_asthma.setText("No");
+        new Init().execute();
 
         button.setOnClickListener(v->{
             Toast.makeText(getContext(), "Closed patient information", Toast.LENGTH_SHORT).show();
@@ -68,5 +44,39 @@ public class ViewFragment extends Fragment {
                     .replace(R.id.main_container, new RecordsFragment())
                     .commitNow();
         });
+    }
+
+    public class Init extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {RecordHelper recordHelper = new RecordHelper(getContext());
+            PatientHelper patientHelper = new PatientHelper(getContext());
+            HistoryHelper historyHelper = new HistoryHelper(getContext());
+
+            Record record = recordHelper.get(getArguments().getInt("recordID"));
+            Patient patient = patientHelper.get(record.getPatientID());
+            History history = historyHelper.get(record.getHistoryID());
+
+            view_id.setText("Patient-" + record.getID());
+            view_fullname.setText(patient.getFirstName() + " " + patient.getMiddleName() + " " + patient.getLastName());
+            view_age.setText("" + patient.getAge());
+            view_gender.setText(patient.getSex());
+
+            if(history.isSmoker())
+                view_smoking.setText("Yes");
+            else
+                view_smoking.setText("No");
+
+            if(history.hasHeartCondition())
+                view_heart.setText("Yes");
+            else
+                view_heart.setText("No");
+
+            if(history.hasAsthma())
+                view_asthma.setText("Yes");
+            else
+                view_asthma.setText("No");
+            return null;
+        }
+
     }
 }

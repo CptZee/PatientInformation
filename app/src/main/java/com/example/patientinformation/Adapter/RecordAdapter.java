@@ -2,6 +2,7 @@ package com.example.patientinformation.Adapter;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        RecordHelper recordHelper = new RecordHelper(activity);
         PatientHelper helper = new PatientHelper(activity);
         Record record = list.get(position);
         Patient patient = helper.get(record.getPatientID());
@@ -57,8 +57,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.setMessage("Are you sure you want to remove record with the ID of " + viewHolder.getId().getText().toString())
                     .setPositiveButton("Yes", (dialog, id) -> {
-                        recordHelper.remove(record);
-                        Toast.makeText(activity, "Successfully removed the record!", Toast.LENGTH_SHORT);
+                        new Remove().execute(record);
+                        notifyDataSetChanged();
                     })
                     .setNegativeButton("No", (dialog, id) -> {
                         //Nothing cause swag
@@ -122,6 +122,23 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
 
         public Button getRemove() {
             return remove;
+        }
+    }
+
+    private class Remove extends AsyncTask<Record, Void, Void>{
+
+        @Override
+        protected Void doInBackground(Record... records) {
+            RecordHelper recordHelper = new RecordHelper(activity);
+            recordHelper.remove(records[0]);
+            list.remove(records[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+            Toast.makeText(activity, "Successfully removed the record!", Toast.LENGTH_SHORT).show();
         }
     }
 

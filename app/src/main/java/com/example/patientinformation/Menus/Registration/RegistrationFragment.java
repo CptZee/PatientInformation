@@ -1,5 +1,6 @@
 package com.example.patientinformation.Menus.Registration;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,12 +24,13 @@ public class RegistrationFragment extends Fragment {
     }
 
     private EditText firstName, middleName, lastName, age;
-    private TextView textView3;
+    private Button button;
+    private TextView textView3, loading;
     private RadioButton male, female;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         Bundle args = getArguments();
-        Button button = view.findViewById(R.id.register_next_button);
+        button = view.findViewById(R.id.register_next_button);
         firstName = view.findViewById(R.id.register_fist_name);
         middleName = view.findViewById(R.id.register_middle_name);
         lastName = view.findViewById(R.id.register_last_name);
@@ -36,10 +38,22 @@ public class RegistrationFragment extends Fragment {
         male = view.findViewById(R.id.register_male);
         female = view.findViewById(R.id.register_female);
         textView3 = view.findViewById(R.id.textView3);
+        loading = view.findViewById(R.id.register_loading);
 
-        if(!args.getBoolean("newRecord"))
-            initModifyData();
+        button.setVisibility(View.INVISIBLE);
+        firstName.setVisibility(View.INVISIBLE);
+        middleName.setVisibility(View.INVISIBLE);
+        lastName.setVisibility(View.INVISIBLE);
+        age.setVisibility(View.INVISIBLE);
+        male.setVisibility(View.INVISIBLE);
+        female.setVisibility(View.INVISIBLE);
+        textView3.setVisibility(View.INVISIBLE);
 
+        if(!args.getBoolean("newRecord")){
+            textView3.setText("UPDATE PATIENT");
+            new initModifyData().execute(getArguments().getInt("recordID"));
+        }else
+            showFields();
         button.setOnClickListener(v->{
             args.putString("firstName", firstName.getText().toString());
             args.putString("middleName", middleName.getText().toString());
@@ -56,20 +70,40 @@ public class RegistrationFragment extends Fragment {
         });
     }
 
-    private void initModifyData(){
-        RecordHelper recordHelper = new RecordHelper(getContext());
-        PatientHelper patientHelper = new PatientHelper(getContext());
-        Record record = recordHelper.get(getArguments().getInt("recordID"));
-        Patient patient = patientHelper.get(record.getPatientID());
-        textView3.setText("UPDATE PATIENT");
-        firstName.setText(patient.getFirstName());
-        middleName.setText(patient.getMiddleName());
-        lastName.setText(patient.getLastName());
-        age.setText("" + patient.getAge());
-        if(patient.getSex().equals("Male"))
-            male.setChecked(true);
-        else
-            female.setChecked(true);
+    private void showFields(){
+        button.setVisibility(View.VISIBLE);
+        firstName.setVisibility(View.VISIBLE);
+        middleName.setVisibility(View.VISIBLE);
+        lastName.setVisibility(View.VISIBLE);
+        age.setVisibility(View.VISIBLE);
+        male.setVisibility(View.VISIBLE);
+        female.setVisibility(View.VISIBLE);
+        textView3.setVisibility(View.VISIBLE);
+        loading.setVisibility(View.INVISIBLE);
+    }
 
+    private class initModifyData extends AsyncTask<Integer, Void, Patient>{
+
+        private Record record;
+        @Override
+        protected Patient doInBackground(Integer... recordIds) {
+            RecordHelper recordHelper = new RecordHelper(getContext());
+            PatientHelper patientHelper = new PatientHelper(getContext());
+            record = recordHelper.get(recordIds[0]);
+            return patientHelper.get(record.getPatientID());
+        }
+        @Override
+        protected void onPostExecute(Patient patient) {
+            super.onPostExecute(patient);
+            firstName.setText(patient.getFirstName());
+            middleName.setText(patient.getMiddleName());
+            lastName.setText(patient.getLastName());
+            age.setText("" + patient.getAge());
+            if(patient.getSex().equals("Male"))
+                male.setChecked(true);
+            else
+                female.setChecked(true);
+            showFields();
+        }
     }
 }

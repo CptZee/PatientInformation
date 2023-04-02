@@ -1,6 +1,5 @@
 package com.example.patientinformation;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -15,6 +14,7 @@ import com.example.patientinformation.Data.Helper.RecordHelper;
 import com.example.patientinformation.Menus.DashboardFragment;
 import com.example.patientinformation.Menus.RecordsFragment;
 import com.example.patientinformation.Menus.Registration.RegistrationFragment;
+import com.example.patientinformation.Menus.ViewFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .create().show();
             return;
-        } else if(!currentFragment.getArguments().getBoolean("newRecord") && currentFragment instanceof RegistrationFragment){
+        } else if((!currentFragment.getArguments().getBoolean("newRecord") && currentFragment instanceof RegistrationFragment) || currentFragment instanceof ViewFragment){
             nav.setSelectedItemId(R.id.records);
             return;
         }else if(currentFragment instanceof RegistrationFragment || currentFragment instanceof RecordsFragment) {
