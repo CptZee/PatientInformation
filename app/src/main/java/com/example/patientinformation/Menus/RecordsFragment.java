@@ -2,6 +2,8 @@ package com.example.patientinformation.Menus;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,14 +31,12 @@ public class RecordsFragment extends Fragment {
     }
 
     private EditText records_search;
-    private Button records_search_button;
     private RecyclerView records_list;
     private TextView records_no_list;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         records_search = getView().findViewById(R.id.records_search);
-        records_search_button = getView().findViewById(R.id.records_search_button);
         records_list = getView().findViewById(R.id.records_list);
         records_no_list = getView().findViewById(R.id.records_no_list);
         new LoadRecordsTask().execute(); // Run database operation in background thread
@@ -69,23 +69,36 @@ public class RecordsFragment extends Fragment {
             records_list.setLayoutManager(new LinearLayoutManager(getContext()));
             records_list.setAdapter(adapter);
 
-            records_search_button.setOnClickListener(v->{
-                String name = records_search.getText().toString();
-                if(name.isEmpty()){
-                    RecordAdapter adapter2 = new RecordAdapter(proxyList, (MainActivity) getActivity());
-                    records_list.setAdapter(adapter2);
-                    return;
+            records_search.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
                 }
-                list.clear();
-                for(Record r : proxyList){
-                    PatientHelper patientHelper = new PatientHelper(getContext());
-                    Patient patient = patientHelper.get(r.getPatientID());
-                    String fullName = patient.getFirstName() + " " + patient.getMiddleName() + " " + patient.getLastName();
-                    if(fullName.toLowerCase().contains(name.toLowerCase()))
-                        list.add(r);
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    String name = records_search.getText().toString();
+                    if (name.isEmpty()) {
+                        RecordAdapter adapter2 = new RecordAdapter(proxyList, (MainActivity) getActivity());
+                        records_list.setAdapter(adapter2);
+                        return;
+                    }
+                    list.clear();
+                    for (Record r : proxyList) {
+                        PatientHelper patientHelper = new PatientHelper(getContext());
+                        Patient patient = patientHelper.get(r.getPatientID());
+                        String fullName = patient.getFirstName() + " " + patient.getMiddleName() + " " + patient.getLastName();
+                        if (fullName.toLowerCase().contains(name.toLowerCase()))
+                            list.add(r);
+                    }
+                    RecordAdapter adapter3 = new RecordAdapter(list, (MainActivity) getActivity());
+                    records_list.setAdapter(adapter3);
                 }
-                RecordAdapter adapter3 = new RecordAdapter(list, (MainActivity) getActivity());
-                records_list.setAdapter(adapter3);
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
             });
         }
     }
