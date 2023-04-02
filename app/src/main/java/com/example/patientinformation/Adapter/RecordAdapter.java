@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         String fullName = patient.getFirstName() + " " + patient.getMiddleName() + " " + patient.getLastName();
         viewHolder.getFullName().setText(fullName);
         viewHolder.getId().setText("Patient-"+patient.getID());
+        Log.i("CardAdapterDebug", "Target ID: " + "Patient-"+patient.getID());
+        Log.i("CardAdapterDebug", "Showing ID: " + viewHolder.getId().getText().toString());
         viewHolder.getRemove().setOnClickListener(v->{
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.setMessage("Are you sure you want to remove record with the ID of " + viewHolder.getId().getText().toString())
