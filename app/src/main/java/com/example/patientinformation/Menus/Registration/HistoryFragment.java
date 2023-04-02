@@ -41,6 +41,9 @@ public class HistoryFragment extends Fragment {
         if(!getArguments().getBoolean("newRecord"))
             new initModifyData().execute(getArguments().getInt("recordID"));
         button.setOnClickListener(v->{
+            if(areFieldsEmpty())
+                return;
+
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage("Are the details provided are correct?")
                     .setPositiveButton("Yes", (dialog, id) -> {
@@ -55,7 +58,22 @@ public class HistoryFragment extends Fragment {
                     .create().show();
         });
     }
-
+    private boolean areFieldsEmpty(){
+        boolean isEmpty = false;
+        if(!smokerYes.isChecked() && !smokerNo.isChecked()){
+            Toast.makeText(getContext(), "Please select if you smoke or not!", Toast.LENGTH_SHORT).show();
+            isEmpty = true;
+        }
+        if(!heartYes.isChecked() && !heartNo.isChecked()){
+            Toast.makeText(getContext(), "Please select if you have a heart condition or not!", Toast.LENGTH_SHORT).show();
+            isEmpty = true;
+        }
+        if(!asthmaYes.isChecked() && !asthmaNo.isChecked()){
+            Toast.makeText(getContext(), "Please select if you asthma or not!", Toast.LENGTH_SHORT).show();
+            isEmpty = true;
+        }
+        return isEmpty;
+    }
     private class initModifyData extends AsyncTask<Integer, Void, History>{
 
         @Override

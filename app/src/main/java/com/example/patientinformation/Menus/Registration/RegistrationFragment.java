@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -55,6 +56,9 @@ public class RegistrationFragment extends Fragment {
         }else
             showFields();
         button.setOnClickListener(v->{
+            if(areFieldsEmpty())
+                return;
+
             args.putString("firstName", firstName.getText().toString());
             args.putString("middleName", middleName.getText().toString());
             args.putString("lastName", lastName.getText().toString());
@@ -82,8 +86,29 @@ public class RegistrationFragment extends Fragment {
         loading.setVisibility(View.INVISIBLE);
     }
 
-    private class initModifyData extends AsyncTask<Integer, Void, Patient>{
+    private boolean areFieldsEmpty(){
+        boolean isEmpty = false;
+        if(firstName.getText().toString().isEmpty()){
+            firstName.setError("Field is required!");
+            isEmpty = true;
+        }
+        if(lastName.getText().toString().isEmpty()){
+            lastName.setError("Field is required!");
+            isEmpty = true;
+        }
+        if(age.getText().toString().isEmpty()){
+            age.setError("Field is required!");
+            isEmpty = true;
+        }
+        if(!male.isChecked() && !female.isChecked()){
+            Toast.makeText(getContext(), "Please select your sex!", Toast.LENGTH_SHORT).show();
+            isEmpty = true;
+        }
+        return isEmpty;
+    }
 
+
+    private class initModifyData extends AsyncTask<Integer, Void, Patient>{
         private Record record;
         @Override
         protected Patient doInBackground(Integer... recordIds) {
