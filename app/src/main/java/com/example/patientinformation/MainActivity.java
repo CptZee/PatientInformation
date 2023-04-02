@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.app.AlertDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.example.patientinformation.Data.Helper.HistoryHelper;
@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        new initDatabase().execute();
 
         nav = findViewById(R.id.bottom_nav);
         nav.setOnItemSelectedListener(item -> {
@@ -54,15 +56,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
-
-        HistoryHelper historyHelper = new HistoryHelper(this);
-        PatientHelper patientHelper = new PatientHelper(this);
-        RecordHelper recordHelper = new RecordHelper(this);
-
-        historyHelper.onCreate(historyHelper.getWritableDatabase());
-        patientHelper.onCreate(patientHelper.getWritableDatabase());
-        recordHelper.onCreate(recordHelper.getWritableDatabase());
-        Log.i("FormLogger", "Current ID: " + getNavBar().getSelectedItemId());
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_container, new SplashFragment())
@@ -103,5 +96,19 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         super.onBackPressed();
+    }
+
+    private class initDatabase extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            HistoryHelper historyHelper = new HistoryHelper(MainActivity.this);
+            PatientHelper patientHelper = new PatientHelper(MainActivity.this);
+            RecordHelper recordHelper = new RecordHelper(MainActivity.this);
+
+            historyHelper.onCreate(historyHelper.getWritableDatabase());
+            patientHelper.onCreate(patientHelper.getWritableDatabase());
+            recordHelper.onCreate(recordHelper.getWritableDatabase());
+            return null;
+        }
     }
 }
